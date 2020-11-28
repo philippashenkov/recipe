@@ -42,11 +42,8 @@ function addMeal(mealData, random = false) {
 
     meal.innerHTML = `
         <div class="meal-header">
-            ${
-                random
-                    ? `
-            <span class="random"> Random Recipe </span>`
-                    : ""
+            ${random ? `<span class="random">
+             Random Recipe </span>`: ""
             }
             <img
                 src="${mealData.strMealThumb}"
@@ -60,6 +57,22 @@ function addMeal(mealData, random = false) {
             </button>
         </div>
     `;
+    
+    const btn = meal.querySelector(".meal-body .fav-btn");
+    
+    btn.addEventListener("click", () => {
+        btn.classList.toggle("active");
+    });
 
     meals.appendChild(meal);
+}
+
+function addMealToLS(mealId) {
+ const mealIds = getMealsFromLS();
+
+ localStorage.setItem('mealIds', JSON.stringify([...mealIds, mealId]));
+}
+
+function getMealsFromLS() {
+    const mealIds = localStorage.getItem('mealIds');
 }
